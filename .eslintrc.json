@@ -25,6 +25,15 @@
       }
     ],
     "react/react-in-jsx-scope": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-console": "warn",
+    "no-undef": "error",
+    "react/prop-types": "error",
+    "react/require-default-props": "error"
+  },
+  "globals": {
+    "document": "readonly",
+    "console": "readonly",
+    "process": "readonly"
   }
 }
