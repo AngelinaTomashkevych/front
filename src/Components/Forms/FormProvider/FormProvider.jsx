@@ -1,4 +1,4 @@
-import { cloneElement } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Formik, Form } from 'formik';
@@ -12,19 +12,7 @@ function FormProvider(props) {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ errors, touched }) => {
-        return (
-          <Form>
-            {children.map((element) => {
-              return cloneElement(element, {
-                errors,
-                touched,
-                key: element.key,
-              });
-            })}
-          </Form>
-        );
-      }}
+      <Form>{children}</Form>
     </Formik>
   );
 }
@@ -42,4 +30,4 @@ FormProvider.defaultProps = {
   onSubmit: () => {},
 };
 
-export default FormProvider;
+export default memo(FormProvider);

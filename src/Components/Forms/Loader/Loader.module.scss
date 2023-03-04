@@ -1,0 +1,14 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &_large {
+    height: 100vh;
+  }
+}
+
+.loader {
+  padding: 0 !important;
+}

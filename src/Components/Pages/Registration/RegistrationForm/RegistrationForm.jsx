@@ -3,20 +3,19 @@ import FormProvider from 'Components/Forms/FormProvider';
 import FormField from 'Components/Forms/FormField';
 import Button from 'Components/Forms/Button';
 
-import { useLoginMutation } from 'redux/queries/auth';
-
+import { useRegistrationMutation } from 'redux/queries/auth';
+import { setAppInfo } from 'redux/slice/appInfo';
 import { FIELD_NAMES } from './constants';
 import { schema } from './schema';
-import { getDefaultFormState } from './configs/getDefaultFormState';
-import { setAppInfo } from 'redux/slice/appInfo';
+import { getDefaultFormState } from './config/getDefaultFormState';
 
-function LoginForm() {
-  const [login, { isLoading }] = useLoginMutation();
+function RegistrationForm() {
+  const [registration, { isLoading }] = useRegistrationMutation();
 
   const dispatch = useDispatch();
 
   const onSubmit = async (values, { setErrors }) => {
-    const { data, error } = await login(values);
+    const { error, data } = await registration(values);
 
     if (error) {
       setErrors(error);
@@ -32,7 +31,7 @@ function LoginForm() {
       validationSchema={schema}
       onSubmit={onSubmit}
     >
-      <h3>Login</h3>
+      <h3>Registration</h3>
       <FormField type="email" name={FIELD_NAMES.EMAIL} label="Enter email" />
       <FormField
         type="password"
@@ -46,4 +45,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default RegistrationForm;
