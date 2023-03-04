@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { Field } from 'formik';
+import { Field, connect } from 'formik';
 import { useState } from 'react';
 import { AiOutlineEyeInvisible } from '@react-icons/all-files/ai/AiOutlineEyeInvisible';
 import { AiOutlineEye } from '@react-icons/all-files/ai/AiOutlineEye';
@@ -9,7 +9,8 @@ import { AiOutlineEye } from '@react-icons/all-files/ai/AiOutlineEye';
 import styles from './FormField.module.scss';
 
 function FormField(props) {
-  const { type, name, label, errors, touched } = props;
+  const { type, name, label, formik } = props;
+  const { errors } = formik;
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -38,9 +39,7 @@ function FormField(props) {
           <Eye className={styles.icon} onClick={toogleEye} />
         )}
       </div>
-      {errors[name] && touched[name] && (
-        <div className={styles.error}>{errors[name]}</div>
-      )}
+      {errors[name] && <div className={styles.error}>{errors[name]}</div>}
     </div>
   );
 }
@@ -51,6 +50,7 @@ FormField.propTypes = {
   label: PropTypes.string,
   errors: PropTypes.object,
   touched: PropTypes.object,
+  formik: PropTypes.object,
 };
 
 FormField.defaultProps = {
@@ -58,6 +58,7 @@ FormField.defaultProps = {
   errors: {},
   touched: {},
   type: 'text',
+  formik: {},
 };
 
-export default FormField;
+export default connect(FormField);
