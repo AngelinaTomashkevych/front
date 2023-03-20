@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './TaskCard.module.scss';
 
 function TaskCard(props) {
-  const { id, title, description, date, completed } = props;
+  const { title, description, date, completed } = props;
 
   const cardClassName = classNames(styles.card, {
     [styles.card_completed]: completed,

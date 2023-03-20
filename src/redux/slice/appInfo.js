@@ -7,7 +7,6 @@ const initialState = {
 
 const appInfoSlice = createSlice({
   name: 'appInfo',
-  reducerPath: 'appInfo',
   initialState,
   reducers: {
     setAppInfo(state, action) {
