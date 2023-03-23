@@ -5,6 +5,9 @@ export const data = [
     description: 'test description',
     date: 1677955714775,
     completed: true,
+    owner: {
+      id: '640391b6595122a60b4bafed',
+    },
   },
   {
     id: '6',

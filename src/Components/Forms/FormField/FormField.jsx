@@ -6,11 +6,17 @@ import { useState } from 'react';
 import { AiOutlineEyeInvisible } from '@react-icons/all-files/ai/AiOutlineEyeInvisible';
 import { AiOutlineEye } from '@react-icons/all-files/ai/AiOutlineEye';
 
+import { SPECIAL_TYPES, TYPES } from './constants';
+
 import styles from './FormField.module.scss';
 
 function FormField(props) {
-  const { type, name, label, formik } = props;
-  const { errors } = formik;
+  const {
+    type,
+    name,
+    label,
+    formik: { errors, touched },
+  } = props;
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -18,10 +24,12 @@ function FormField(props) {
     setShowPassword(!showPassword);
   };
 
+  const specialType = SPECIAL_TYPES[type];
+
   const Eye = showPassword ? AiOutlineEyeInvisible : AiOutlineEye;
 
   const fieldClassName = classNames(styles.field, {
-    [styles.field_error]: errors[name],
+    [styles.field_error]: errors[name] && touched[name],
   });
 
   return (
@@ -34,18 +42,21 @@ function FormField(props) {
           type={showPassword ? 'text' : type}
           name={name}
           className={fieldClassName}
+          as={specialType}
         />
         {type === 'password' && (
           <Eye className={styles.icon} onClick={toogleEye} />
         )}
       </div>
-      {errors[name] && <div className={styles.error}>{errors[name]}</div>}
+      {errors[name] && touched[name] && (
+        <div className={styles.error}>{errors[name]}</div>
+      )}
     </div>
   );
 }
 
 FormField.propTypes = {
-  type: PropTypes.oneOf(['email', 'password', 'text', 'number']),
+  type: PropTypes.oneOf(Object.values({ ...SPECIAL_TYPES, ...TYPES })),
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   errors: PropTypes.object,
@@ -57,7 +68,7 @@ FormField.defaultProps = {
   label: '',
   errors: {},
   touched: {},
-  type: 'text',
+  type: TYPES.TEXT,
   formik: {},
 };
 

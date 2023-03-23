@@ -6,7 +6,7 @@ import Loader from 'Components/Forms/Loader';
 import styles from './Button.module.scss';
 
 function Button(props) {
-  const { children, type, isLoading } = props;
+  const { children, type, isLoading, ...rest } = props;
 
   const buttonRef = useRef(null);
 
@@ -26,6 +26,7 @@ function Button(props) {
       className={styles.button}
       style={{ width: buttonWidth }}
       ref={buttonRef}
+      {...rest}
     >
       {isLoading ? <Loader /> : <div>{children}</div>}
     </button>
@@ -40,7 +41,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   children: '',
-  type: 'submit',
+  type: 'button',
   isLoading: false,
 };
 
