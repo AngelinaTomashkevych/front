@@ -8,7 +8,7 @@ const taksmanApi = createApi({
     baseUrl: getBaseUrl(),
     credentials: 'include',
   }),
-  tagTypes: ['Get-tasks', 'Add-task'],
+  tagTypes: ['Get-tasks', 'Add-task', 'Delete-task'],
   endpoints: (build) => {
     return {
       getTasks: build.query({
@@ -17,17 +17,28 @@ const taksmanApi = createApi({
         transformErrorResponse: (response) => response.data,
         providesTags: ['Get-tasks'],
       }),
+
       addTask: build.mutation({
         query: (body) => ({ url: '/taskman/add-task', method: 'POST', body }),
-        transformResponse: (response) => response,
         transformErrorResponse: (response) => response.data,
         providesTags: ['Add-task'],
+        invalidatesTags: ['Get-tasks'],
+      }),
+
+      deleteTask: build.mutation({
+        query: (id) => ({
+          url: `/taskman/delete-task/${id}`,
+          method: 'DELETE',
+        }),
+        transformErrorResponse: (response) => response.data,
+        providesTags: ['Delete-task'],
         invalidatesTags: ['Get-tasks'],
       }),
     };
   },
 });
 
-export const { useGetTasksQuery, useAddTaskMutation } = taksmanApi;
+export const { useGetTasksQuery, useAddTaskMutation, useDeleteTaskMutation } =
+  taksmanApi;
 
 export default taksmanApi;
