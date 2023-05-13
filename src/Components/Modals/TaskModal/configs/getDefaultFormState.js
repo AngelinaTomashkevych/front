@@ -4,6 +4,6 @@ export const getDefaultFormState = () => {
   return {
     [FIELD_NAMES.TITLE]: '',
     [FIELD_NAMES.DESCRIPTION]: '',
-    [FIELD_NAMES.COMPLITED]: false,
+    [FIELD_NAMES.COMPLETED]: false,
   };
 };
